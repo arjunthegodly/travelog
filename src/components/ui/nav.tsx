@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
-import { Map, Compass, PlusCircle, User, LogOut } from 'lucide-react'
-import { createClient } from '@/lib/supabase/client'
+import { usePathname } from 'next/navigation'
+import { Map, Compass, PlusCircle, User } from 'lucide-react'
+import { UserButton } from '@clerk/nextjs'
 import { cn } from '@/utils/cn'
 import type { Profile } from '@/types'
 
@@ -14,14 +14,6 @@ const navItems = [
 
 export function Nav({ profile }: { profile: Profile | null }) {
   const pathname = usePathname()
-  const router = useRouter()
-
-  async function signOut() {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    router.push('/')
-    router.refresh()
-  }
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
@@ -60,18 +52,12 @@ export function Nav({ profile }: { profile: Profile | null }) {
               </Link>
               <Link
                 href={`/@${profile.username}`}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors"
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors"
               >
                 <User className="w-4 h-4" />
-                <span className="hidden sm:inline">{profile.username}</span>
+                {profile.username}
               </Link>
-              <button
-                onClick={signOut}
-                className="p-2 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
-                aria-label="Sign out"
-              >
-                <LogOut className="w-4 h-4" />
-              </button>
+              <UserButton />
             </>
           ) : (
             <>
@@ -82,7 +68,6 @@ export function Nav({ profile }: { profile: Profile | null }) {
         </div>
       </div>
 
-      {/* Mobile bottom nav */}
       {profile && (
         <div className="sm:hidden fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 flex z-50">
           {navItems.map(({ href, label, icon: Icon }) => (
@@ -98,10 +83,10 @@ export function Nav({ profile }: { profile: Profile | null }) {
               {label}
             </Link>
           ))}
-          <Link href="/new" className={cn('flex-1 flex flex-col items-center py-2 text-xs font-medium', 'text-gray-500')}>
+          <Link href="/new" className="flex-1 flex flex-col items-center py-2 text-xs font-medium text-gray-500">
             <PlusCircle className="w-5 h-5 mb-0.5" />New
           </Link>
-          <Link href={`/@${profile.username}`} className={cn('flex-1 flex flex-col items-center py-2 text-xs font-medium', 'text-gray-500')}>
+          <Link href={`/@${profile.username}`} className="flex-1 flex flex-col items-center py-2 text-xs font-medium text-gray-500">
             <User className="w-5 h-5 mb-0.5" />Profile
           </Link>
         </div>

@@ -1,14 +1,14 @@
-import { createClient } from '@/lib/supabase/server'
+import { auth } from '@clerk/nextjs/server'
 import { Nav } from '@/components/ui/nav'
+import { getDB, profiles, eq } from '@/lib/db'
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const { userId } = await auth()
 
   let profile = null
-  if (user) {
-    const { data } = await supabase.from('profiles').select('*').eq('id', user.id).single()
-    profile = data
+  if (userId) {
+    const db = getDB()
+    profile = await db.select().from(profiles).where(eq(profiles.id, userId)).get() ?? null
   }
 
   return (

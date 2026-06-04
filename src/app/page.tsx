@@ -1,12 +1,11 @@
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/server'
+import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import { Map, Users, BookOpen } from 'lucide-react'
 
 export default async function LandingPage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (user) redirect('/feed')
+  const { userId } = await auth()
+  if (userId) redirect('/feed')
 
   return (
     <div className="min-h-screen flex flex-col">

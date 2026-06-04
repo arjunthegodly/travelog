@@ -20,17 +20,21 @@ export function EntryCard({ entry }: Props) {
               <div className="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center text-xs font-bold text-indigo-600">
                 {entry.profile.username?.[0]?.toUpperCase()}
               </div>
-              <span className="text-xs text-gray-500">
-                <Link href={`/@${entry.profile.username}`} className="hover:underline font-medium text-gray-700" onClick={(e) => e.stopPropagation()}>
-                  {entry.profile.username}
-                </Link>
-              </span>
+              <Link
+                href={`/@${entry.profile.username}`}
+                className="text-xs hover:underline font-medium text-gray-700"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {entry.profile.username}
+              </Link>
             </div>
           )}
           <h3 className="font-semibold text-gray-900 truncate">{entry.title}</h3>
           <div className="flex items-center gap-1.5 mt-1 text-sm text-gray-500">
             <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-            <span className="truncate">{entry.location_name ?? `${entry.lat.toFixed(2)}, ${entry.lng.toFixed(2)}`}</span>
+            <span className="truncate">
+              {entry.locationName ?? `${entry.lat.toFixed(2)}, ${entry.lng.toFixed(2)}`}
+            </span>
           </div>
         </div>
         {entry.rating && (

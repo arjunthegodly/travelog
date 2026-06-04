@@ -44,7 +44,8 @@ Discovers the app through a shared profile link or the explore page. May sign up
 |-------|--------|-----------|
 | Framework | Next.js 14+ (App Router, TypeScript) | SSR for SEO on public profiles/entries; strong ecosystem |
 | Styling | Tailwind CSS | Rapid responsive UI development |
-| Database & Auth | Supabase (PostgreSQL + Auth + Storage) | Managed Postgres, Row Level Security for privacy, built-in auth |
+| Database | Cloudflare D1 (SQLite) + Drizzle ORM | Edge-native, zero extra accounts, lives in Cloudflare dashboard |
+| Auth | Clerk | Hosted auth UI, email + Google OAuth, edge-compatible |
 | Map | Mapbox GL JS + react-map-gl | Best-in-class styling, custom themes, generous free tier |
 | Rich Text | Tiptap | Headless, highly extensible, good React integration |
 | Source Control | GitHub | PRs, branch protection, Cloudflare Pages integration |

@@ -1,34 +1,26 @@
-import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
-import type { Trip, Profile } from '@/types'
+import { getDB, profiles, trips, eq, and } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
-export default async function TripPage({
-  params,
-}: {
-  params: Promise<{ username: string; slug: string }>
-}) {
+export default async function TripPage({ params }: { params: Promise<{ username: string; slug: string }> }) {
   const { username, slug } = await params
-  const supabase = await createClient()
+  const db = getDB()
 
-  const { data: profileData } = await supabase
-    .from('profiles')
-    .select('id')
-    .eq('username', username)
-    .single()
+  const profile = await db
+    .select({ id: profiles.id })
+    .from(profiles)
+    .where(eq(profiles.username, username))
+    .get()
 
-  const profile = profileData as Pick<Profile, 'id'> | null
   if (!profile) notFound()
 
-  const { data: tripData } = await supabase
-    .from('trips')
-    .select('*')
-    .eq('user_id', profile.id)
-    .eq('slug', slug)
-    .single()
+  const trip = await db
+    .select()
+    .from(trips)
+    .where(and(eq(trips.userId, profile.id), eq(trips.slug, slug)))
+    .get()
 
-  const trip = tripData as Trip | null
   if (!trip) notFound()
 
   return (
