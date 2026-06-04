@@ -82,6 +82,13 @@ export interface TripRoute {
   created_at: string
 }
 
+export type EntryWithRelations = Omit<Entry, 'profile' | 'trip' | 'category' | 'tags'> & {
+  profile?: Profile | null
+  trip?: Trip | null
+  category?: PinCategory | null
+  tags?: Array<{ tag: Tag | null }>
+}
+
 export type Database = {
   public: {
     Tables: {

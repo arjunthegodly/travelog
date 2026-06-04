@@ -2,11 +2,7 @@ import { LoginForm } from '@/components/ui/login-form'
 
 export const metadata = { title: 'Sign in — Travelog' }
 
-export default function LoginPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ next?: string }>
-}) {
+export default function LoginPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md">

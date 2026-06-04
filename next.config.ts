@@ -1,7 +1,19 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  async rewrites() {
+    return [
+      // Map /@username → /username so profile URLs show with @ prefix
+      {
+        source: '/@:username',
+        destination: '/:username',
+      },
+      {
+        source: '/@:username/trip/:slug',
+        destination: '/:username/trip/:slug',
+      },
+    ]
+  },
+}
 
-export default nextConfig;
+export default nextConfig

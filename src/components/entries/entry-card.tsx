@@ -1,13 +1,15 @@
+'use client'
+
 import Link from 'next/link'
 import { MapPin, Star } from 'lucide-react'
-import type { Entry } from '@/types'
+import type { EntryWithRelations } from '@/types'
 
 interface Props {
-  entry: Entry & { profile?: any; trip?: any; category?: any; tags?: any[] }
+  entry: EntryWithRelations
 }
 
 export function EntryCard({ entry }: Props) {
-  const tags: string[] = entry.tags?.map((t: any) => t.tag?.name).filter(Boolean) ?? []
+  const tags = entry.tags?.map((t) => t.tag?.name).filter((n): n is string => Boolean(n)) ?? []
 
   return (
     <Link href={`/entry/${entry.id}`} className="block bg-white border border-gray-200 rounded-xl p-5 hover:border-indigo-300 hover:shadow-sm transition-all">

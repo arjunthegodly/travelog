@@ -1,12 +1,15 @@
 {
-  "name": "travelog-scaffold",
+  "name": "travelog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "preview": "npm run pages:build && wrangler pages dev",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy": "npm run pages:build && wrangler pages deploy"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
@@ -22,7 +25,7 @@
     "clsx": "^2.1.1",
     "lucide-react": "^1.17.0",
     "mapbox-gl": "^3.24.0",
-    "next": "16.2.7",
+    "next": "15.3.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-map-gl": "^8.1.1",
@@ -30,6 +33,7 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.16",
     "@tailwindcss/postcss": "^4",
     "@types/mapbox-gl": "^3.4.1",
     "@types/node": "^20",
@@ -38,6 +42,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.98.0"
   }
 }

@@ -2,7 +2,9 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { EntryCard } from '@/components/entries/entry-card'
+import type { EntryWithRelations } from '@/types'
 
+export const dynamic = 'force-dynamic'
 export const metadata = { title: 'Feed — Travelog' }
 
 export default async function FeedPage() {
@@ -10,7 +12,6 @@ export default async function FeedPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  // Get IDs of users this user follows
   const { data: following } = await supabase
     .from('follows')
     .select('following_id')
@@ -18,7 +19,7 @@ export default async function FeedPage() {
 
   const followingIds = (following as Array<{ following_id: string }> | null)?.map((f) => f.following_id) ?? []
 
-  let entries: any[] = []
+  let entries: EntryWithRelations[] = []
   if (followingIds.length > 0) {
     const { data } = await supabase
       .from('entries')
@@ -27,7 +28,7 @@ export default async function FeedPage() {
       .eq('is_public', true)
       .order('created_at', { ascending: false })
       .limit(30)
-    entries = data ?? []
+    entries = (data ?? []) as EntryWithRelations[]
   }
 
   return (
@@ -47,7 +48,7 @@ export default async function FeedPage() {
         </div>
       ) : (
         <div className="space-y-4">
-          {entries.map((entry: any) => (
+          {entries.map((entry) => (
             <EntryCard key={entry.id} entry={entry} />
           ))}
         </div>

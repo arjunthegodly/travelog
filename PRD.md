@@ -47,8 +47,8 @@ Discovers the app through a shared profile link or the explore page. May sign up
 | Database & Auth | Supabase (PostgreSQL + Auth + Storage) | Managed Postgres, Row Level Security for privacy, built-in auth |
 | Map | Mapbox GL JS + react-map-gl | Best-in-class styling, custom themes, generous free tier |
 | Rich Text | Tiptap | Headless, highly extensible, good React integration |
-| Source Control | GitHub | PRs, branch protection, Vercel integration |
-| Deployment | Vercel | Zero-config Next.js deploys, auto-deploy on push to main, preview URLs per PR |
+| Source Control | GitHub | PRs, branch protection, Cloudflare Pages integration |
+| Deployment | Cloudflare Pages | Global edge network, auto-deploy on push to main, preview URLs per PR |
 | State Management | Zustand + React Query (TanStack) | Local UI state + server state caching |
 
 ---
