@@ -61,8 +61,8 @@ export function Nav({ profile }: { profile: Profile | null }) {
             </>
           ) : (
             <>
-              <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-1.5">Sign in</Link>
-              <Link href="/signup" className="bg-indigo-600 text-white text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-700 transition-colors">Sign up</Link>
+              <Link href="/sign-in" className="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-1.5">Sign in</Link>
+              <Link href="/sign-up" className="bg-indigo-600 text-white text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-700 transition-colors">Sign up</Link>
             </>
           )}
         </div>
