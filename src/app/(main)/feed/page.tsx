@@ -16,9 +16,9 @@ export default async function FeedPage() {
     .select('following_id')
     .eq('follower_id', user.id)
 
-  const followingIds = following?.map((f) => f.following_id) ?? []
+  const followingIds = (following as Array<{ following_id: string }> | null)?.map((f) => f.following_id) ?? []
 
-  let entries = []
+  let entries: any[] = []
   if (followingIds.length > 0) {
     const { data } = await supabase
       .from('entries')
